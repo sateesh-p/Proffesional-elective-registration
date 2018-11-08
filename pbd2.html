@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#a{
+	background-color:white;
+	padding-top:0px;
+	width:500px;
+	height:240px;
+	padding:30px;
+    align:center;
+	-moz-box-shadow: 0 0 17px #ccc;
+     -webkit-box-shadow: 0 0 17px #ccc;
+     box-shadow: 0 0 17px #ccc;
+	margin:150px 150px 150px 450px;
+
+}
+</style>
+</head>
+<body>
+<div align="center" style="border-bottom:2px maroon solid;">
+<img src="i.png" >
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function() {
+    $(".preferenceSelect").change(function() {
+        // Get the selected value
+        var selected = $("option:selected", $(this)).val();
+        // Get the ID of this element
+        var thisID = $(this).prop("id");
+        // Reset so all values are showing:
+        $(".preferenceSelect option").each(function() {
+            $(this).prop("disabled", false);
+        });
+        $(".preferenceSelect").each(function() {
+            if ($(this).prop("id") != thisID) {
+                $("option[value='" + selected + "']", $(this)).prop("disabled", true);
+            }
+        });
+
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $("#b1").click(function(){
+	var name=$('#name').val();
+	var id=$('#idn').val();
+    var yea=$('#year').val();
+	var elec1=$('#pref1select').val();
+	var elec2=$('#pref2select').val();
+        
+    $.ajax({
+    type: "POST",
+    url: 'phppost.php',
+    data: {name:name,id:id,ye:yea,course1:elec1,course2:elec2},
+    success: function(data){
+        alert(data);
+	}
+    });
+});
+});
+</script>
+  <div id="a">
+<table style="background-color: white;border-color: black;" align="center">
+<tr><td>Name:</td><td><input type="textbox" id="name"></td></tr><br>
+<tr><td>Id.no:</td><td><input type="textbox" id="idn"></td></tr>
+    <br>
+<tr><td>Year:</td><td><select id="year" >
+  <option value="None">None</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+
+</select></td></tr><br>
+
+<tr><th>Select open Elective 1:</th><td><select id="pref1select" class="preferenceSelect">
+  <option value="None">None</option>
+  <option value="None">None</option>
+  <option value="PE1-15CS2001">PE1-15CS2001</option>
+  <option value="PE2-15CS2002">PE2-15CS2002</option>
+  <option value="PE3-15C2003">PE3-15CS2003</option>
+  <option value="PE4-15CS2004">PE4-15CS2004</option>
+</select></td></tr>
+<br>
+
+<tr><th>Select open Elective 2:</th><td><select id="pref2select" class="preferenceSelect">
+  <option value="None">None</option>
+  <option value="PE1-15CS2001">PE1-15CS2001</option>
+  <option value="PE2-15CS2002">PE2-15CS2002</option>
+  <option value="PE3-15C2003">PE3-15CS2003</option>
+  <option value="PE4-15CS2004">PE4-15CS2004</option>
+</select></td></tr>
+<tr align="center" ><td></td></tr>
+
+</table><br>
+<center><button type="submit" id="b1">Submit</button></center>
+</div>
+<script>
+</body>
+</html>
